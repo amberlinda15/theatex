@@ -1,0 +1,51 @@
+.cardCont > h1{
+    text-align: center;
+    text-transform: uppercase;
+    margin: 20px;
+    font-weight: 300;
+}
+
+.cardCont > h1::after{
+    display: block;
+    content: '';
+    width: 150px;
+    height: 2px;
+    background-color: #000;
+    margin: 0 auto;
+}
+
+.card{
+    padding: 10px;
+    min-width: 300px;
+    height: 200px;
+    color: #fff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}
+
+.card > h3{
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.cardContFlex{
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+}
+
+.cardContFlex > div{
+    margin-right: 20px
+}
