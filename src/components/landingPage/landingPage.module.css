@@ -1,3 +1,12 @@
+/*
+COLOR PALLETTES
+
+1B1A17  black
+F0A500  yellow
+E45826  orange
+E6D5B8  pink
+*/
+
 *{
     margin: 0;
     padding: 0;
@@ -14,42 +23,89 @@ html,body{
     font-family: 'Lato', sans-serif;
     font-family: 'Open Sans', sans-serif;
     font-family: 'Roboto', sans-serif;
-    background-color: #3F3C29;
+    background-color: #1B1A17;
 }
 
 .banner_cont{
-    height: 80vh;
-    background: linear-gradient(#54595f2c,#54595fa8),url(../../img/main_banner.jpg);
-    background-size: cover;
-    background-position: center;
+    height: 100vh;
     background-attachment: fixed;
 }
 
-.flexCont{
+.banner_cont > div > div{
+    width: 100%;
+    height: 100%;
     display: flex;
-    align-items: center;
+}
+
+.banner_text_cont{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: left;
+    color: #fff;
+    flex-direction: column;
     justify-content: center;
 }
 
-.bannerText{
-    color: #000;
-    background-color: #FFF56D;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.bannerText > h1{
-    text-transform: uppercase;
+.banner_text_cont > h1{
     font-weight: 100;
     font-size: 50px;
-    padding: 5px;
-    border-radius: 5px;
+    text-align: left;
+    text-transform: uppercase;
 }
 
-.bannerText > h2{
+.banner_text_cont > h3{
     font-weight: 400;
-    padding: 5px;
-    border-radius: 5px;
+    font-size: 20px;
+    text-align: left;
+    text-transform: uppercase;
 }
 
 
+.rating_cont{
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.rating_cont > span{
+    text-transform: uppercase;
+}
+
+.rating_cont > span:last-child{
+    text-transform: lowercase;
+}
+
+.star_cont{
+    margin-top: 5px;
+}
+
+.star_cont > svg{
+    margin-right: 5px;
+}
+
+.banner_text_cont_right{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.banner_text_cont_right > a > svg{
+    width: 60px;
+    height: 60px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.banner_text_cont_right > a > svg:hover{
+    transform: scale(1.2);
+}
+
+.banner_text_cont_right > span{
+    color: #fff;
+    margin-left: 20px;
+}

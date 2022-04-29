@@ -7,8 +7,10 @@
 .nav_cont{
     width: 100%;
     /* background-color: #FFF56D; */
-    background-color: #3F3C29;
+    background-color: transparent;
     height: 60px;
+    position: fixed;
+    z-index: 9999;
 }
 
 .navlink_cont{
@@ -31,8 +33,8 @@
 }
 
 .navlink_cont > li:hover{
-    color: #FFF56D;
-    border-bottom: 1px solid #FFF56D;
+    color: #F0A500;
+    border-bottom: 1px solid #F0A500;
 }
 
 .logoCont{
@@ -44,4 +46,12 @@
 .logoCont > img{
     width: 100%;
     height: 100%;
+}
+
+.logo_name_cont{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    float: left;
 }

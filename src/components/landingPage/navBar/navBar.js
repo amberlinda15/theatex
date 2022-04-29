@@ -9,6 +9,9 @@ const navBar = props => {
                 <div className={css.logoCont}>
                     <img src={logo}/>
                 </div>
+                <div className={css.logo_name_cont}>
+                    <p >Theatex</p>
+                </div>
                 <ul className={css.navlink_cont}>
                     {props.links.map(el => <li>{el.name}</li>)}
                     <li>profile</li>
