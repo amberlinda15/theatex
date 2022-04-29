@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './navBar/navBar';
 import CardCont from './cardCont/cardCont';
 import { Carousel } from 'react-responsive-carousel';
@@ -42,6 +42,22 @@ const LandingPage = () => {
         trailerLink:"https://youtu.be/p99rer0DiCo"
     }]);
 
+    const fetchmovies = async () => {
+        try {
+            const res = await fetch('http://localhost:3006/movies');
+            const data = await res.json();
+            // console.log(data.rows)
+            setMovies(data.rows)
+        } catch (e) {
+            console.log("SOMETHING WENT WRONG!!!", e)
+        }
+    }
+
+    useEffect(() => {
+        fetchmovies()
+    },[])
+
+
     return(
         <div>
             <Navbar links={navlinks}/>
@@ -54,7 +70,7 @@ const LandingPage = () => {
                 <div className={`${css.row}`}>
                     <div>
                         <div className={css.banner_text_cont}>
-                            <h1>{el.name}</h1>
+                            <h1>{el.movie_name}</h1>
                             <h3>{el.desc}</h3>
                             <div className={css.rating_cont}>
                                 <div className={css.star_cont}>
@@ -67,7 +83,7 @@ const LandingPage = () => {
                                 </div>     
                                 <span>{el.rating}/5</span>                   
                                 <span>{el.ratingComp}</span>
-                                <span>{el.duration}</span>                   
+                                <span>{el.duration}min</span>                   
                             </div>
                         </div>
                         <div className={css.banner_text_cont_right}>
