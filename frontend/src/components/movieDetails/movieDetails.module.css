@@ -1,0 +1,286 @@
+/*
+COLOR PALLETTES
+
+1B1A17  black
+F0A500  yellow
+E45826  orange
+E6D5B8  pink
+*/
+
+.row{
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.main_cont{
+    height: 100vh;
+}
+
+.flex_box{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 20px;
+}
+
+.flex_box > div{
+    width: 40%;
+
+}
+
+.left_cont{
+    margin-right: 20px;
+}
+
+.right_cont{
+    text-align: left;
+    color: #fff;
+}
+
+.right_cont > h1{
+    font-size: 40px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.right_cont > h2{
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.rating_cont{
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.rating_cont > span{
+    text-transform: uppercase;
+}
+
+.rating_cont > span:last-child{
+    text-transform: lowercase;
+}
+
+.star_cont > svg{
+    margin-right: 5px;
+}
+
+.datetime_cont{
+    margin-top: 50px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.datetime_cont > div{
+    display: inline-block;
+    margin-left: 30px;
+
+}
+
+.datetime_cont > label{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.datetime_cont > div > p{
+    color: red;
+    margin-top: 10px;
+}
+
+.dateTime input,select{
+    color: #fff;
+}
+
+.dateTime svg{
+    stroke: #fff;
+}
+
+.select_seats_btn_cont{
+    text-decoration: none;
+}
+
+.select_seats_btn{
+    background: #F0A500;
+    border: 1px solid #F0A500;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    border-radius: 5px;
+    font-size: 15px;
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #1B1A17;
+    cursor: pointer;
+    transition: transform 0.2s;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.select_seats_btn > span{
+    margin-right: 10px;
+}
+
+.select_seats_btn:hover{
+    transform: scale(1.05);
+}
+
+.time_cont{
+    display: flex;
+    width: 50%;
+    margin-top: 30px;
+}
+
+.time_cont > div{
+    border: 1px solid #F0A500;
+    padding: 5px 10px;
+    color: #F0A500;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.time_cont > div:hover{
+    transform: scale(1.08);
+    background: #F0A500;
+    color: #fff;
+}
+
+.screen_head{
+    text-align: center;
+    background: #F0A500;
+    color: #fff;
+    padding: 10px;
+    width: 400px;
+    margin: 30px auto;
+}
+
+.seats_cont{
+    margin-top: 5%;
+}
+
+.seat_row_cont{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.seat{
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    margin-right: 8px;
+    transition: all 0.2s;
+    border-radius: 5px;
+}
+
+.seat:hover{
+    transform: scale(1.2);
+}
+
+.margin_right_20{
+    margin-right: 20px;
+}
+
+.margin_bottom_25{
+    margin-bottom: 25px;
+}
+
+.row_name{
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.legend_cont{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+
+.legend_cont > span{
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.center{
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+
+.price_footer_cont{
+    position: fixed;
+    bottom: 0;
+    left: 25%;
+    min-width: 50%;
+    height: 100px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.seat_info_cont{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.seat_info_cont > svg{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.seat_info_cont > p{
+    font-size: 18px;
+    margin-right: 10px;
+    text-transform: capitalize;
+}
+
+.seat_info_cont > span{
+    background: red;
+    margin-right: 5px;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.price_footer_cont .right_cont{
+    display: flex;
+    color: #1B1A17;
+    align-items: center;
+}
+
+.price_footer_cont .right_cont > p{
+    font-size: 18px;
+    text-transform: uppercase;
+    margin:0 25px;
+}
+
+.price_footer_cont .right_cont > svg{
+    width: 40px;
+    height: 40px;
+    fill: #F0A500;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.price_footer_cont .right_cont > svg:hover{
+    transform: scale(1.08);
+}

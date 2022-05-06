@@ -31,7 +31,7 @@ html,body{
     background-attachment: fixed;
 }
 
-.banner_cont > div > div{
+.movie_details_cont{
     width: 100%;
     height: 100%;
     display: flex;
@@ -45,6 +45,7 @@ html,body{
     color: #fff;
     flex-direction: column;
     justify-content: center;
+    z-index: 2;
 }
 
 .banner_text_cont > h1{
@@ -63,7 +64,7 @@ html,body{
 
 
 .rating_cont{
-    width: 300px;
+    width: 250px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -92,6 +93,7 @@ html,body{
     display: flex;
     justify-content: left;
     align-items: center;
+    z-index: 2;
 }
 
 .banner_text_cont_right > a > svg{
@@ -108,4 +110,15 @@ html,body{
 .banner_text_cont_right > span{
     color: #fff;
     margin-left: 20px;
+}
+
+.backdrop{
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.3;
 }

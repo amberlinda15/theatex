@@ -28,7 +28,7 @@
     color: #fff;
     font-weight: 600;
     cursor: pointer;
-    border-bottom: 1px solid #3F3C29;
+    border-bottom: 1px solid #1B1A17;
     transition: all 0.2s;
 }
 
@@ -72,9 +72,29 @@
 
 .profile_dropdown{
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50px;
+    left: -67px;
     width: 100px;
-    height: 100px;
-    background: #fff;
+    background: #1B1A17;
+    border-radius: 5px;
+    border: 1px solid #F0A500;
+}
+
+.profile_dropdown > p{
+    font-size: 15px;
+    font-weight: 300;
+    padding: 8px;
+    text-align: left;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.profile_dropdown > p:hover{
+    background: #F0A500;
+}
+
+.horizontal{
+    width: 100%;
+    height: 1px;
+    background: #F0A500;
 }

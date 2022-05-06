@@ -3,6 +3,8 @@ import { Route,Link,Routes } from 'react-router-dom'
 import LandingPage from './components/landingPage/landingPage'
 import Login from './components/Login/login'
 import MovieDetails from './components/movieDetails/movieDetails';
+import Admin from './components/admin/admin'
+import SelectSeats from './components/movieDetails/seats/seats'
 
 function App() {
 
@@ -18,6 +20,12 @@ function App() {
   },{
     path:"/moviedetails",
     element:<MovieDetails/>
+  },{
+    path:"/admin",
+    element:<Admin/>
+  },{
+    path:"/moviedetails/selectseats",
+    element:<SelectSeats/>
   }]
 
   return (
