@@ -9,8 +9,8 @@ const cardCont = props => {
             <h1>{props.head}</h1>
             <div className={css.cardContFlex}>
                 {
-                    [...Array(5).keys()].map(el => (
-                        <Card/>
+                    props.movies && props.movies.length!=0 && props.movies.map(el => (
+                        <Card movie={el}/>
                     ))
                 }
             </div>

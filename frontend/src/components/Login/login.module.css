@@ -28,6 +28,11 @@
     text-align: center;
 }
 
+.left_child_cont > img{
+    width: 30%;
+    height: auto;
+}
+
 .right_cont{
     width: 60%;
     height: 100%;
