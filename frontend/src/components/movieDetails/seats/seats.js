@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 
 import css from '../movieDetails.module.css'
 
@@ -14,9 +14,6 @@ const Seats = () => {
         c:10,
         d:10,
         e:10,
-        f:10,
-        g:10,
-        h:10
     })
     const [bookedSeats,setBookedSeats] = useState(["e7","f7","e9","a2","g0","g1","g2"])
     const [selectedSeats,setSelectedSeats] = useState([])
@@ -64,16 +61,16 @@ const Seats = () => {
                     ${el[0] == "c" ? css.margin_bottom_25 : ""}
                 `} key={el[0]}>
                     <span className={css.row_name}>{el[0]}</span>
-                    {[...Array(el[1]).keys()].map(elem => {
+                    {[...Array(el[1]).keys()].map((elem,index) => {
                         let id = el[0]+elem
                         return(el[1]/2 == elem+1 ? <div key={id} className={`${css.seat} ${css.margin_right_20}`} onClick = {() => addSeats(id)}
-                        style={bookedSeats.indexOf(id) != -1 ? {background:"red"}
-                        : selectedSeats.indexOf(id) != -1 ? {background:"green"} : {}}></div>
+                        style={bookedSeats.indexOf(id) != -1 ? {background:"red",color:"#fff"}
+                        : selectedSeats.indexOf(id) != -1 ? {background:"green",color:"#fff"} : {}}>{index}</div>
                         :<div key={id} className={`${css.seat}`} onClick = {() => addSeats(id)} 
                         style={
-                           bookedSeats.indexOf(id) != -1 ? {background:"red"}
-                           : selectedSeats.indexOf(id) != -1 ? {background:"green"} : {} 
-                        }></div>)
+                           bookedSeats.indexOf(id) != -1 ? {background:"red",color:"#fff"}
+                           : selectedSeats.indexOf(id) != -1 ? {background:"green",color:"#fff"} : {} 
+                        }>{index}</div>)
                     })}
                 </div>
                 ))}
@@ -96,9 +93,11 @@ const Seats = () => {
                 </div>
                 <div className={css.right_cont}>
                     <p>INR {270*selectedSeats.length}</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                    </svg>
+                    <Link to="/moviedetails/selectseats/payment" className={css.next_btn}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                    </Link>
                 </div>
             </div>}
         </div>

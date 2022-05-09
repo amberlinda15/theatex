@@ -6,6 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Loader from '../otherComponents/loader/Loader'
 import axios from 'axios'
+import { DATABASEPORT } from '../otherComponents/globalKeys'
 
 import css from './landingPage.module.css';
 
@@ -18,6 +19,7 @@ const LandingPage = () => {
 
     const [movies,setMovies] = useState([{}]);
     const [nowShowing,setNowShowing] = useState([]);
+    const [comingSoon,setComingSoon] = useState([]);
 
     // const [movies,setMovies] = useState([{
     //     background:poster1,
@@ -45,10 +47,10 @@ const LandingPage = () => {
     //     trailerLink:"https://youtu.be/p99rer0DiCo"
     // }]);
 
-    const fetchmovies = async () => {
+    const fetchmovies = () => {
         axios({
             method: 'get',
-            url: 'http://localhost:3000/movies'
+            url: `http://localhost:${DATABASEPORT}/movies`
           })
         .then((res) => {
             setMovies(res.data.rows)
@@ -60,14 +62,19 @@ const LandingPage = () => {
 
     const nowShowingHandler = () => {
         if(!movies){return}
-        const nowShowing = movies.map(el => {
+        const newNowShowing = []
+        const newComingSoon = []
+        const d2 = new Date()
+        movies.forEach(el => {
             const d1 = new Date(el.release_date)
-            const d2 = new Date()
             if(d1.getTime() < d2.getTime()){
-                return el
+                newNowShowing.push(el)
+            }else if(d1.getTime() > d2.getTime()){
+                newComingSoon.push(el)
             }
         })
-        setNowShowing(nowShowing)
+        setNowShowing(newNowShowing)
+        setComingSoon(newComingSoon)
     }
 
     useEffect(() => {
@@ -134,7 +141,7 @@ const LandingPage = () => {
                 </div>)})}
                 </Carousel>}
                 <CardCont head="now showing" movies={nowShowing}/>
-                <CardCont head="coming soon" movies={nowShowing}/>
+                <CardCont head="coming soon" movies={comingSoon}/>
             </div>
         </Fragment>
     );

@@ -9,7 +9,7 @@ const card = props => {
     const poster = props.movie ? require(`../${props.movie.movie_poster}`) : ""
 
     return(
-        props.movie ? <Link to="/moviedetails" className={css.card}
+        props.movie ? <Link to={`/moviedetails/${props.movie.movie_id}`} className={css.card}
         style={{
             backgroundImage:`url('${poster}')`,
             backgroundSize:"contain",

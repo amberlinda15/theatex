@@ -175,8 +175,7 @@ E6D5B8  pink
 }
 
 .seat{
-    width: 20px;
-    height: 20px;
+    padding: 5px 10px;
     background: #fff;
     margin-right: 8px;
     transition: all 0.2s;
@@ -273,7 +272,7 @@ E6D5B8  pink
     margin:0 25px;
 }
 
-.price_footer_cont .right_cont > svg{
+.price_footer_cont .next_btn > svg{
     width: 40px;
     height: 40px;
     fill: #F0A500;
@@ -281,6 +280,6 @@ E6D5B8  pink
     cursor: pointer;
 }
 
-.price_footer_cont .right_cont > svg:hover{
+.price_footer_cont .next_btn > svg:hover{
     transform: scale(1.08);
 }

@@ -98,3 +98,8 @@
     height: 1px;
     background: #F0A500;
 }
+
+.dropdown_links{
+    color: #fff;
+    text-decoration: none;
+}
