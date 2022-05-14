@@ -69,7 +69,7 @@
     font-size: 16px;
 }
 
-.form_element_cont > input{
+.form_element_cont input{
     width: 250px;
     padding: 8px;
     margin-top: 5px;
@@ -91,4 +91,46 @@
 
 .submitBtn:hover{
     transform: scale(1.05);
+}
+
+.password_cont{
+    position: relative;
+    width: fit-content;
+}
+
+.password_cont > svg{
+    position: absolute;
+    top: 15px;
+    right: 8px;
+    fill: #000;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.password_cont > svg:hover{
+    transform: scale(1.1);
+}
+
+.register_link{
+    color: #fff;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.errMsg{
+    color: red;
+    margin-bottom: 20px;
+}
+
+.floating_loader{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.2;
 }

@@ -104,6 +104,12 @@ E6D5B8  pink
     text-decoration: none;
 }
 
+.errP{
+    color: red;
+    text-transform: uppercase;
+    margin-top: 40px;
+}
+
 .select_seats_btn{
     background: #F0A500;
     border: 1px solid #F0A500;
@@ -111,7 +117,7 @@ E6D5B8  pink
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 10px;
     border-radius: 5px;
     font-size: 15px;
     text-transform: capitalize;
@@ -149,6 +155,11 @@ E6D5B8  pink
 
 .time_cont > div:hover{
     transform: scale(1.08);
+    background: #F0A500;
+    color: #fff;
+}
+
+.time_cont > .selected{
     background: #F0A500;
     color: #fff;
 }
@@ -272,7 +283,7 @@ E6D5B8  pink
     margin:0 25px;
 }
 
-.price_footer_cont .next_btn > svg{
+.price_footer_cont .right_cont > svg{
     width: 40px;
     height: 40px;
     fill: #F0A500;
@@ -280,6 +291,6 @@ E6D5B8  pink
     cursor: pointer;
 }
 
-.price_footer_cont .next_btn > svg:hover{
+.price_footer_cont .right_cont > svg:hover{
     transform: scale(1.08);
 }

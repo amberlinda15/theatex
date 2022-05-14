@@ -20,6 +20,8 @@ const MovieDetails = props => {
     const [movies,setMovies] = useState([]);
     const [movieTimings,setMovieTimings] = useState()
     const [datetimeErr,setDatetimeErr] = useState(false);
+    const [timings,setTimings] = useState()
+    const [seletedShow,setSeletedShow] = useState({})
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ const MovieDetails = props => {
           })
         .then((res) => {
             console.log(res.data)
-            setMovieTimings(res.data.rows)
+            setMovieTimings(res.data)
         })
         .catch(err => {
             console.log("SOMETHING WENT WRONG!!!", err);
@@ -60,6 +62,26 @@ const MovieDetails = props => {
         });
     }
 
+    const dateHandler = date => {
+        if(!date) return
+        const arr = [...movieTimings["rows"]]
+        const today = new Date()
+        if(date.getDate() == today.getDate()){
+            setTimings(movieTimings["rows"])
+        }else if(date.getDate() == maxDateHandler().getDate()){
+            setTimings(movieTimings["row"])
+        }else{
+            setTimings()
+        }
+    }
+
+    const maxDateHandler = () => {
+        const date = new Date()
+        const tommorrow = new Date(date)
+        tommorrow.setDate(date.getDate()+1)
+        return tommorrow
+    }
+
     useEffect(() => {
         fetchmovies()
     },[])
@@ -69,6 +91,10 @@ const MovieDetails = props => {
         getMovieTimeHandler(movieId)
         getMovieHandler(movieId)
     },[movieId,movies])
+
+    useEffect(() => {
+        dateHandler(datetime)
+    },[datetime])
 
     const poster = movie[0] ? require(`../landingPage/${movie[0].movie_poster}`) : ""
 
@@ -108,16 +134,20 @@ const MovieDetails = props => {
                     <div className={css.datetime_cont}>
                         <label>Select date : </label>
                         <div>
-                            <DatePicker required className={css.dateTime} onChange={setDatetime} value={datetime}/>
-                            <p style={datetimeErr ? {opacity:1}:{opacity:0}}>select date</p>
+                            <DatePicker required className={css.dateTime} onChange={setDatetime} 
+                            value={datetime} maxDate={maxDateHandler()} minDate={new Date()}/>
                         </div>
                     </div>
                     <div className={css.time_cont}>
-                        {[...Array(4).keys()].map(el => <div key={el}>{el}:00</div>)}
+                        {timings && timings.map(el => <div 
+                        key={el.start_time} 
+                        onClick={() => setSeletedShow(el)}
+                        className={el.show_id == seletedShow.show_id ? css.selected : ""}>{`${el.start_time.split(":")[0]}:${el.start_time.split(":")[1]}`}</div>)}
                     </div>
+                    <p className={css.errP} style={datetimeErr ? {opacity:1}:{opacity:0}}>select date and time</p>
                     <button className={css.select_seats_btn} onClick={() => {
-                        if(datetime){
-                            navigate("/moviedetails/selectseats"+location.search)
+                        if(datetime && seletedShow.show_id){
+                            navigate(`/moviedetails/selectseats/${seletedShow.show_id}`+location.search)
                             setDatetimeErr(false)
 
                         }else{

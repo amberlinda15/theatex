@@ -1,48 +1,41 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer();
+var app = express();
 var mysql = require('mysql');
 var cors = require('cors')
 var path = require('path');
+const bcrypt = require('bcryptjs');
+var nodemailer = require('nodemailer');
+
+
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(upload.array()); 
+app.use(express.static('public'));
+
+
+
 var passwordValidator = require('password-validator');
 var schema = new passwordValidator();
-const req = require('express/lib/request');
+
 const port = 3000;
 app.use(cors())
 app.set('views', __dirname + '/views');
 app.use("/assets", express.static(path.join(__dirname, 'assets')));
 var date_obj = new Date();
-//Checking the crypto module
-const crypto = require('crypto');
-const { time } = require('console');
-const algorithm = 'aes-256-cbc'; //Using AES encryption
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
-const router = express.Router()
-const bodyParser = require('body-parser')
 
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
-//Encrypting text
-function encrypt(text) {
-   let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-   let encrypted = cipher.update(text);
-   encrypted = Buffer.concat([encrypted, cipher.final()]);
-   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-}
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'theatexbangalore@gmail.com',
+    pass: 'aiyghqdkebmeozhi'
+  }
+});
 
-// Decrypting text
-function decrypt(text) {
-   let iv = Buffer.from(text.iv, 'hex');
-   let encryptedText = Buffer.from(text.encryptedData, 'hex');
-   let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
-   let decrypted = decipher.update(encryptedText);
-   decrypted = Buffer.concat([decrypted, decipher.final()]);
-   return decrypted.toString();
-}
 
-// var hw = encrypt("Welcome to Tutorials Point...")
-// console.log(hw)
-// console.log(decrypt(hw))
+
 
 schema
 .is().min(8)                                    
@@ -71,46 +64,80 @@ connection.connect(function(err){
   })
 
 app.get('/',(req,res)=>{
-  
-    res.send("hello");
+  res.sendFile(path.join(__dirname,'./test.html'));
  })
   
 
 app.post('/register',(req,res)=>{
   var name=req.body.cust_name;  
   var phn=req.body.phone_number;
-  var email=req.body.email;
+  var emails=req.body.email;
   var password=req.body.password;
   var count=0;
- 
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))
+ console.log(count)
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emails))
   {
-    if(schema.validate(password.value)){
+    if(schema.validate(password)){
         connection.query('SELECT email FROM customer', function (err,rows) {
           if (err) throw err
+          console.log(rows.length)
           for(var i=0;i<rows.length;i++)
           {
-            if(rows[i].email==email){
+            if(emails==rows[i].email){
               count=1;
+              console.log("hello")
+              break;
             }
           }
-        })
-        if(count=1){
+        if(count==1){
           res.send("Email id already registered");
         }
         else{
-          connection.query(`INSERT INTO customer VALUES (null,${name.value},0,${phn.value},${email.value},${encrypt(password.value)})`,function(err){
+          connection.query(`INSERT INTO customer VALUES (null,'${name}',0,${phn},'${emails}','${bcrypt.hashSync(password, 10)}')`,function(err){
             if (err) throw err
+            connection.query(`SELECT * from customer where email='${emails}'`,function(errr,row){
+              console.log(row)
+              if (errr) throw errr
+                res.redirect('/send?r='+row[0].cust_id+'&r='+password+'&r='+emails);
+            })
           }) 
         }
+      })
       }
       else{
         res.send("enter strong password");
       }
-    }
+    } 
   else{
       res.send("Invalid email format");
   }
+  
+})
+
+app.post('/login',(req,res)=>{
+
+  var id=req.body.id;
+  var pass=req.body.password;
+
+  var count=0;
+  connection.query(`SELECT cust_id,password from customer`,function(err,rows){
+    if (err) throw err
+    for(var i=0;i<rows.length;i++)
+          {
+            var password_hash=rows[i]["password"];
+            const verified = bcrypt.compareSync(pass, password_hash.toString());
+            if(id==rows[i].cust_id && verified){
+              count=1;
+              break;
+            }
+          }
+        if(count==1){
+          res.send(bcrypt.hashSync(pass, 10))
+        }
+        else{
+          res.status(404).send('Not Found');
+        }
+})
 })
 
 app.get('/movies', (req, res) => {
@@ -120,7 +147,6 @@ app.get('/movies', (req, res) => {
       return;
     }
     try{
-        console.log(rows)
         res.json({rows})
         
     }catch (err) {
@@ -165,29 +191,82 @@ app.get('/movie/show/:index',(req,res)=>{
   })
 })
 
-app.post('/login',(req,res)=>{
-  console.log(req.body)
-  res.status(401,"unauthorised")
-  // var id=req.body.id;
-  // var password=req.body.password;
+app.get('/seats',(req,res)=>{
+  console.log(req.query.a)
+  try{
+    connection.query(`SELECT * FROM shows where show_id=${req.query.a[0]} and start_time>=CURTIME() and date=CURDATE()`,function(err,day1){
+      if (err) throw err;
+      connection.query(`SELECT * FROM shows where show_id=${req.query.a[0]} and date>CURDATE()`,function(err,day2){
+      if (err) throw err;
+      // console.log(day1.length)
+      // console.log(day2.length)
+      if(day1.length!=0 || day2.length!=0){
+        connection.query(`SELECT screen_id from shows where show_id=${req.query.a[0]};`,function(err,row){
+          if (err) throw err;
+          // console.log(row[0].screen_id)
+            connection.query(`SELECT * from seats where screen_id=${row[0].screen_id}`,function(err,rows){
+              if (err) throw err;
+              var count=0
+              // console.log(rows.length)
+              for(i=1;i<req.query.a.length;i++){
+                for(j=0;j<rows.length;j++){
+                  if(rows[j].seat_id==req.query.a[i]){
+                    count++;
+                  }
+                }
+              }
+                console.log(count)
+                if(count==req.query.a.length-1){
+                  for(i=1;i<req.query.a.length;i++){
+                  connection.query(`UPDATE seats SET status = 1 WHERE seat_id = ${req.query.a[i]};`,function(err){
+                    if (err) throw err;
+                  })  
+                }
+                res.send("seat updated successfully")
+                  return;
+                }
+                else{
+                  res.send('invalid seat or show');
+                  return;
+                }
+            })
+      })
+      }
+      else{
+        res.send('invalid seat or show');
+        return;
+      }
+    })
+  })
+  }
+  catch{
+    res.send('invalid seat or show');
+    return;
+  }
+})
 
-  // var count=0;
-  // connection.query('SELECT * from customer',function(err,rows){
-  //   if (err) throw err
-  //   for(var i=0;i<rows.length;i++)
-  //   {
-  //     if(rows[i].cust_id==id.value&&decrypt(rows[i].password)==password.value){
-  //       count=1;
-  //       break
-  //     }
-  //   }
-  //   if(count==1){
-  //     res.json(encrypt(password.value));
-  //   }
-  //   else{
-  //     res.send("hello")
-  //   }
-  // })
+
+
+app.get('/send',(req,res)=>{
+  // console.log(req.query.r.length)
+  var id=req.query.r[0];
+  var password=req.query.r[1];
+  var mail=req.query.r[2];
+  console.log(mail)
+  var mailOptions = {
+    from: 'theatexbangalore@gmail.com@gmail.com',
+    to: `${mail}`,
+    subject: `Welcome to theatex`,
+    text:`here is your Credentials\n user id:${id}\n password:${password}\nThis is a computer generated mail\n\nEnjoy Theatex\nThank you`
+  };
+  transporter.sendMail(mailOptions, function(err, info){
+    if (err) {
+      res.status(404).send('Not sent');
+      throw err
+    } else {
+      res.send("email successgully sent")
+    }
+  });
 })
  
 app.listen(port, () => {

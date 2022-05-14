@@ -14,7 +14,6 @@ const LandingPage = () => {
 
     const [navlinks,setNavlinks] = useState([
         {name:"home",link:"./home"},
-        {name:"locations",link:"./home"},
     ]);
 
     const [movies,setMovies] = useState([{}]);

@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import paytm_link from '../../img/amber_paytm_link.jpeg'
 import BackdropComp from '../otherComponents/backdrop/backdropComp'
 import { useForm } from 'react-hook-form'
 
 import css from './payment.module.css'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Payment = () => {
 
     const [showContactForm,setShowContactForm] = useState(true)
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const {
         register,
@@ -23,14 +27,22 @@ const Payment = () => {
         setShowContactForm(false)
     }
 
+    useEffect(() => {
+        if(!localStorage.getItem("custToken")){
+            navigate(`/custLogin/payment`+location.search)
+        }
+    },[])
+
     return(
         <div className={css.main_cont}>
             <h1>make your payment</h1>
             <div className={css.paytm_link_cont}>
                 <img src={paytm_link}/>
             </div>
-            <button>confirm payment</button>
-            <BackdropComp disableBack={true} styleBack={{opacity:"0.8"}} show={showContactForm}>
+            <Link to="/moviedetails/selectseats/payment/ack">
+                <button>confirm payment</button>
+            </Link>
+            {false && <BackdropComp disableBack={true} styleBack={{opacity:"0.8"}} show={showContactForm}>
                 <div className={css.main_form_cont}>
                     <h1>Contact details
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-x-circle-fill ${css.closeBtn}`} viewBox="0 0 16 16">
@@ -52,7 +64,7 @@ const Payment = () => {
                         </div>
                     </form>
                 </div>
-            </BackdropComp>
+            </BackdropComp>}
         </div>
     )
 }

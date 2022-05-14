@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route,Link,Routes } from 'react-router-dom'
 import LandingPage from './components/landingPage/landingPage'
-import Login from './components/Login/login'
+import CustomerLogin from './components/Login/customerLogin'
 import MovieDetails from './components/movieDetails/movieDetails';
 import Admin from './components/admin/admin'
 import SelectSeats from './components/movieDetails/seats/seats'
 import Payment from './components/payment/payment'
+import PaymentAck from './components/payment/paymentAck'
 
 function App() {
 
@@ -13,11 +14,11 @@ function App() {
     path:"/",
     element:<LandingPage/>
   },{
-    path:"/login/:type",
-    element:<Login/>
+    path:"/custLogin/",
+    element:<CustomerLogin/>
   },{
-    path:"/login",
-    element:<Login/>
+    path:"/custLogin/:type",
+    element:<CustomerLogin/>
   },{
     path:"/moviedetails/:movie_id",
     element:<MovieDetails/>
@@ -25,11 +26,14 @@ function App() {
     path:"/admin",
     element:<Admin/>
   },{
-    path:"/moviedetails/selectseats",
+    path:"/moviedetails/selectseats/:show_id",
     element:<SelectSeats/>
   },{
     path:"/moviedetails/selectseats/payment",
     element:<Payment/>
+  },{
+    path:"/moviedetails/selectseats/payment/ack",
+    element:<PaymentAck/>
   }]
 
   return (
